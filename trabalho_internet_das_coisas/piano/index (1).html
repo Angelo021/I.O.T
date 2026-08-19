@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arduino Music Controller</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/piano.css">
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🎹</div>
+      <div class="logo-text">
+        <h1>MusicController</h1>
+        <p>Arduino Serial Bridge</p>
+      </div>
+    </div>
+    <div class="status-badge">
+      <div class="dot"></div>
+      SISTEMA ATIVO
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div class="main-grid">
+
+    <!-- PIANO -->
+    <div class="piano-section">
+      <div class="section-label">// Teclado Principal — C4 a C5</div>
+
+      <div class="keyboard-wrap" id="teclado"></div>
+
+      <div class="visualizer-wrap">
+        <div class="viz-header">
+          <span class="viz-label">// Forma de Onda</span>
+          <span class="freq-display" id="freq-display">--- Hz</span>
+        </div>
+        <canvas id="visualizer" width="800" height="80"></canvas>
+      </div>
+
+      <div class="key-hint" style="margin-top:16px">
+        <p style="margin-bottom:8px">Teclas do teclado:</p>
+        <div class="hint-keys">
+          <span>A</span><span>S</span><span>D</span><span>F</span>
+          <span>G</span><span>H</span><span>J</span><span>K</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-panel">
+
+      <!-- Volume & Reverb -->
+      <div class="card">
+        <div class="card-title">// Controles</div>
+
+        <div class="control-row">
+          <span class="ctrl-name">Volume</span>
+          <input type="range" id="volume" min="0" max="1" step="0.01" value="0.6">
+          <span class="ctrl-val" id="vol-val">60%</span>
+        </div>
+
+        <div class="control-row">
+          <span class="ctrl-name">Decay</span>
+          <input type="range" id="decay" min="50" max="800" step="10" value="200">
+          <span class="ctrl-val" id="decay-val">200ms</span>
+        </div>
+
+        <div class="control-row">
+          <span class="ctrl-name">Reverb</span>
+          <input type="range" id="reverb" min="0" max="1" step="0.01" value="0.2">
+          <span class="ctrl-val" id="rev-val">20%</span>
+        </div>
+      </div>
+
+      <!-- Onda -->
+      <div class="card">
+        <div class="card-title">// Tipo de Onda</div>
+        <div class="wave-btns">
+          <button class="wave-btn selected" data-wave="sine">Sine</button>
+          <button class="wave-btn" data-wave="square">Square</button>
+          <button class="wave-btn" data-wave="triangle">Triangle</button>
+          <button class="wave-btn" data-wave="sawtooth">Sawtooth</button>
+        </div>
+      </div>
+
+      <!-- Oitava -->
+      <div class="card">
+        <div class="card-title">// Ajustes</div>
+        <div class="stepper">
+          <span class="step-label">Oitava</span>
+          <div class="step-controls">
+            <button class="step-btn" id="oct-down">−</button>
+            <span class="step-val" id="oct-val">4</span>
+            <button class="step-btn" id="oct-up">+</button>
+          </div>
+        </div>
+        <div class="stepper">
+          <span class="step-label">Arp BPM</span>
+          <div class="step-controls">
+            <button class="step-btn" id="bpm-down">−</button>
+            <span class="step-val" id="bpm-val">120</span>
+            <button class="step-btn" id="bpm-up">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gravação -->
+      <div class="card">
+        <div class="card-title">// Gravação</div>
+        <div class="record-btns">
+          <button class="rec-btn rec" id="rec-btn">● REC</button>
+          <button class="rec-btn play" id="play-btn" disabled>▶ PLAY</button>
+          <button class="rec-btn clear" id="clear-btn">✕</button>
+        </div>
+        <div id="rec-status" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:10px;letter-spacing:1px;">AGUARDANDO GRAVAÇÃO...</div>
+        <div class="notes-log" id="notes-log">
+          <div style="color:var(--muted);font-size:10px;">Nenhuma nota registrada ainda.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    Arduino UNO R3 &nbsp;|&nbsp; Web Audio API &nbsp;|&nbsp; <span>8 Pinos Digitais (2–9)</span> &nbsp;|&nbsp; Buzzer no Pino 10
+  </footer>
+</div>
+
+<script src="js/piano.js"></script>
+</body>
+</html>
